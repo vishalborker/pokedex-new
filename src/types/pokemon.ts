@@ -78,3 +78,13 @@ export interface PokemonListResponse {
   previous: string | null;
   results: PokemonListItem[];
 }
+
+export interface PokemonTypeListResponse {
+  pokemon: {
+    pokemon: {
+      name: string;
+      url: string;
+    };
+    slot: number;
+  }[];
+}

@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-import type { Pokemon, PokemonListResponse } from '../types/pokemon';
+import type {
+  Pokemon,
+  PokemonListResponse,
+  PokemonTypeListResponse,
+} from '../types/pokemon';
 
 const api = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',
@@ -22,6 +26,14 @@ export const getPokemon = async (
   nameOrId: string | number,
 ): Promise<Pokemon> => {
   const response = await api.get<Pokemon>(`/pokemon/${nameOrId}`);
+
+  return response.data;
+};
+
+export const getPokemonByType = async (
+  type: string,
+): Promise<PokemonTypeListResponse> => {
+  const response = await api.get<PokemonTypeListResponse>(`/type/${type}`);
 
   return response.data;
 };
