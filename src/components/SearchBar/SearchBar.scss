@@ -1,0 +1,42 @@
+.search-bar {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  gap: 0.5rem;
+
+  input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.9rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+
+    &:focus {
+      border-color: #ef4444;
+    }
+  }
+
+  button {
+    padding: 0.9rem 1.25rem;
+    border: 0;
+    border-radius: 10px;
+    background: #ef4444;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: #dc2626;
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+}

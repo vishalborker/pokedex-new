@@ -1,0 +1,66 @@
+.home-page {
+  min-height: 100vh;
+  padding: 1.5rem 1.5rem;
+  background: #f8fafc;
+
+  &__container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    p {
+      margin: 0.75rem 0 0;
+      color: #6b7280;
+    }
+  }
+
+  &__eyebrow {
+    color: #ef4444 !important;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+
+    button {
+      padding: 0.75rem 1rem;
+      border: 0;
+      border-radius: 8px;
+      background: #111827;
+      color: white;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+
+    span {
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    &__pagination {
+      flex-wrap: wrap;
+    }
+  }
+}
