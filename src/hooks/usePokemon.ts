@@ -1,13 +1,37 @@
 import { useInfiniteQuery, useQueries, useQuery } from '@tanstack/react-query';
 
-import { getPokemon, getPokemonList } from '../services/pokemonApi';
+import {
+  getPokemon,
+  getPokemonByType,
+  getPokemonList,
+} from '../services/pokemonApi';
 
 const PAGE_SIZE = 20;
 
-export const usePokemonList = () => {
+export const usePokemonList = (selectedType = 'all') => {
   const listQuery = useInfiniteQuery({
-    queryKey: ['pokemon', 'list'],
-    queryFn: ({ pageParam }) => getPokemonList(PAGE_SIZE, pageParam),
+    queryKey: ['pokemon', 'list', selectedType],
+    queryFn: async ({ pageParam }) => {
+      if (selectedType !== 'all') {
+        const response = await getPokemonByType(selectedType);
+
+        const start = pageParam;
+
+        const end = start + PAGE_SIZE;
+
+        const results = response.pokemon
+          .slice(start, end)
+          .map(({ pokemon }) => pokemon);
+
+        return {
+          count: response.pokemon.length,
+          next: end < response.pokemon.length ? String(end) : null,
+          previous: start > 0 ? String(Math.max(0, start - PAGE_SIZE)) : null,
+          results,
+        };
+      }
+      return getPokemonList(PAGE_SIZE, pageParam);
+    },
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       if (!lastPage.next) {

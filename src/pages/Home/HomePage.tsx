@@ -1,13 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { usePokemonList } from '../../hooks/usePokemon';
+import { usePokemonStore } from '../../stores/pokemonStore';
+import type { PokemonTypeFilter } from '../../components/TypeFilter/pokemonTypes';
+import TypeFilter from '../../components/TypeFilter/TypeFilter';
 
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loading from '../../components/Loading/Loading';
 import PokemonGrid from '../../components/PokemonGrid/PokemonGrid';
 import SearchBar from '../../components/SearchBar/SearchBar';
-
-import { usePokemonList } from '../../hooks/usePokemon';
-import { usePokemonStore } from '../../stores/pokemonStore';
 import Footer from '../../components/Footer/Footer';
 
 import './HomePage.scss';
@@ -15,6 +17,7 @@ import './HomePage.scss';
 function HomePage() {
   const navigate = useNavigate();
 
+  const [selectedType, setSelectedType] = useState<PokemonTypeFilter>('all');
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const {
@@ -26,23 +29,16 @@ function HomePage() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = usePokemonList();
+  } = usePokemonList(selectedType);
 
   const favorites = usePokemonStore((state) => state.favorites);
 
   const toggleFavorite = usePokemonStore((state) => state.toggleFavorite);
 
-  /**
-   * Navigate to the selected Pokémon details page.
-   */
   const handleSearch = (name: string) => {
     navigate(`/pokemon/${name}`);
   };
 
-  /**
-   * Load the next page when the observer
-   * element becomes visible.
-   */
   useEffect(() => {
     const element = loadMoreRef.current;
 
@@ -95,6 +91,11 @@ function HomePage() {
           </header>
 
           <SearchBar onSearch={handleSearch} />
+
+          <TypeFilter
+            selectedType={selectedType}
+            onTypeChange={setSelectedType}
+          />
 
           <PokemonGrid
             pokemon={pokemon}
