@@ -88,3 +88,51 @@ export interface PokemonTypeListResponse {
     slot: number;
   }[];
 }
+
+export interface EvolutionChainResponse {
+  id: number;
+  chain: EvolutionChainLink;
+}
+
+export interface EvolutionChainLink {
+  species: {
+    name: string;
+    url: string;
+  };
+  evolves_to: EvolutionChainLink[];
+  evolution_details: EvolutionDetails[];
+}
+
+export interface EvolutionDetails {
+  min_level: number | null;
+  trigger: {
+    name: string;
+  };
+  item: {
+    name: string;
+    url: string;
+  } | null;
+  time_of_day: string;
+  known_move: {
+    name: string;
+    url: string;
+  } | null;
+  location: {
+    name: string;
+    url: string;
+  } | null;
+  min_happiness: number | null;
+  min_affection: number | null;
+  held_item: {
+    name: string;
+    url: string;
+  } | null;
+}
+
+export interface PokemonSpecies {
+  id: number;
+  name: string;
+  evolution_chain: {
+    url: string;
+  };
+}

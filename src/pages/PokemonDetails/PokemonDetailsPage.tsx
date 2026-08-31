@@ -1,10 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
 
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import EvolutionChain from '../../components/EvolutionChain/EvolutionChain';
+import Loading from '../../components/Loading/Loading';
+import PokemonTypeBadge from '../../components/PokemonTypeBadge/PokemonTypeBadge';
+
+import { useEvolutionChain } from '../../hooks/useEvolutionChain';
 import { usePokemon } from '../../hooks/usePokemon';
 
-import Loading from '../../components/Loading/Loading';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import PokemonTypeBadge from '../../components/PokemonTypeBadge/PokemonTypeBadge';
+import { usePokemonStore } from '../../stores/pokemonStore';
 
 import {
   formatHeight,
@@ -13,8 +17,6 @@ import {
   formatWeight,
   getPokemonImage,
 } from '../../utils/pokemon';
-
-import { usePokemonStore } from '../../stores/pokemonStore';
 
 import './PokemonDetailsPage.scss';
 
@@ -29,6 +31,7 @@ function PokemonDetailsPage() {
     isError,
     refetch,
   } = usePokemon(pokemonName ?? '');
+  const { data: evolutionChain } = useEvolutionChain(pokemon?.name ?? '');
 
   const isFavorite = usePokemonStore((state) =>
     pokemon ? state.favorites.includes(pokemon.id) : false,
@@ -123,6 +126,8 @@ function PokemonDetailsPage() {
             ))}
           </div>
         </section>
+
+        {evolutionChain && <EvolutionChain chain={evolutionChain.chain} />}
 
         <section className="pokemon-details__section">
           <h2>Abilities</h2>
