@@ -1,21 +1,32 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueries, useQuery } from '@tanstack/react-query';
 
 import { getPokemon, getPokemonList } from '../services/pokemonApi';
 
-export const usePokemonList = (limit = 20, offset = 0) => {
-  const listQuery = useQuery({
-    queryKey: ['pokemon', 'list', limit, offset],
-    queryFn: () => getPokemonList(limit, offset),
+const PAGE_SIZE = 20;
+
+export const usePokemonList = () => {
+  const listQuery = useInfiniteQuery({
+    queryKey: ['pokemon', 'list'],
+    queryFn: ({ pageParam }) => getPokemonList(PAGE_SIZE, pageParam),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      if (!lastPage.next) {
+        return undefined;
+      }
+      return allPages.length * PAGE_SIZE;
+    },
     staleTime: 1000 * 60 * 5,
   });
 
+  const pokemonList =
+    listQuery.data?.pages.flatMap((page) => page.results) ?? [];
+
   const pokemonQueries = useQueries({
-    queries:
-      listQuery.data?.results.map((pokemon) => ({
-        queryKey: ['pokemon', pokemon.name],
-        queryFn: () => getPokemon(pokemon.name),
-        staleTime: 1000 * 60 * 10,
-      })) ?? [],
+    queries: pokemonList.map((pokemon) => ({
+      queryKey: ['pokemon', pokemon.name],
+      queryFn: () => getPokemon(pokemon.name),
+      staleTime: 1000 * 60 * 10,
+    })),
   });
 
   const pokemon = pokemonQueries
