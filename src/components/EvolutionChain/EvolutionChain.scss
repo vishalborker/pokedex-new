@@ -1,0 +1,438 @@
+.evolution {
+  margin-top: 2rem;
+  padding: 2.5rem;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 28px;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(99, 102, 241, 0.1),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(236, 72, 153, 0.08),
+      transparent 30%
+    ),
+    #ffffff;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+
+  &__header {
+    margin-bottom: 2.5rem;
+
+    text-align: center;
+  }
+
+  &__eyebrow {
+    display: block;
+
+    margin-bottom: 0.5rem;
+
+    color: #6366f1;
+
+    font-size: 0.75rem;
+    font-weight: 800;
+
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    line-height: 1.2;
+  }
+
+  &__description {
+    margin: 0.75rem 0 0;
+
+    color: #6b7280;
+
+    font-size: 0.95rem;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    padding: 1rem 0 2rem;
+
+    scrollbar-width: thin;
+  }
+}
+
+/* =========================================================
+   Evolution Stage
+   ========================================================= */
+
+.evolution-stage {
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  &__children {
+    display: flex;
+    align-items: center;
+
+    gap: 1.25rem;
+  }
+
+  &--branching {
+    align-items: flex-start;
+  }
+}
+
+/* =========================================================
+   Evolution Card
+   ========================================================= */
+
+.evolution-card {
+  display: flex;
+
+  width: 190px;
+  min-width: 190px;
+
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1.25rem;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+
+  text-decoration: none;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+
+    border-color: #818cf8;
+
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.15);
+  }
+
+  &__image {
+    display: flex;
+
+    width: 150px;
+    height: 150px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: radial-gradient(circle, #ffffff 0%, #eef2ff 100%);
+
+    img {
+      width: 135px;
+      height: 135px;
+
+      object-fit: contain;
+
+      transition: transform 0.25s ease;
+    }
+  }
+
+  &:hover &__image img {
+    transform: scale(1.08);
+  }
+
+  &__number {
+    margin-top: 1rem;
+
+    color: #9ca3af;
+
+    font-size: 0.75rem;
+    font-weight: 800;
+
+    letter-spacing: 0.05em;
+  }
+
+  &__name {
+    margin-top: 0.25rem;
+
+    color: #111827;
+
+    font-size: 1.1rem;
+    font-weight: 800;
+
+    text-transform: capitalize;
+  }
+
+  /* Loading state */
+
+  &--loading {
+    pointer-events: none;
+
+    &:hover {
+      transform: none;
+      border-color: #e5e7eb;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__image-skeleton {
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    animation: evolution-skeleton 1.5s ease-in-out infinite;
+  }
+
+  &__name-skeleton {
+    width: 100px;
+    height: 16px;
+
+    margin-top: 1rem;
+
+    border-radius: 999px;
+
+    background: #f3f4f6;
+
+    animation: evolution-skeleton 1.5s ease-in-out infinite;
+  }
+
+  &__number-skeleton {
+    width: 50px;
+    height: 10px;
+
+    margin-top: 0.5rem;
+
+    border-radius: 999px;
+
+    background: #f3f4f6;
+
+    animation: evolution-skeleton 1.5s ease-in-out infinite;
+  }
+}
+
+/* =========================================================
+   Evolution Connector
+   ========================================================= */
+
+.evolution-connector {
+  position: relative;
+
+  display: flex;
+
+  width: 100px;
+  min-width: 100px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 0.5rem;
+
+  &__line {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    height: 2px;
+
+    background: linear-gradient(90deg, #c7d2fe, #818cf8);
+  }
+
+  &__requirement {
+    position: relative;
+    z-index: 1;
+
+    padding: 0.35rem 0.65rem;
+
+    border: 1px solid #c7d2fe;
+    border-radius: 999px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    font-size: 0.65rem;
+    font-weight: 800;
+
+    white-space: nowrap;
+    text-transform: capitalize;
+  }
+
+  &__arrow {
+    position: absolute;
+
+    right: -2px;
+
+    z-index: 2;
+
+    display: flex;
+
+    width: 20px;
+    height: 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #6366f1;
+
+    color: #ffffff;
+
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+}
+
+/* =========================================================
+   Skeleton Animation
+   ========================================================= */
+
+@keyframes evolution-skeleton {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   Tablet
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .evolution {
+    padding: 2rem 1.5rem;
+
+    &__content {
+      justify-content: flex-start;
+    }
+  }
+
+  .evolution-card {
+    width: 170px;
+    min-width: 170px;
+
+    &__image {
+      width: 135px;
+      height: 135px;
+
+      img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  }
+
+  .evolution-connector {
+    width: 80px;
+    min-width: 80px;
+  }
+}
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .evolution {
+    padding: 1.5rem 1rem;
+
+    border-radius: 20px;
+
+    &__header {
+      margin-bottom: 1.5rem;
+    }
+
+    &__description {
+      font-size: 0.85rem;
+    }
+
+    &__content {
+      padding-bottom: 1rem;
+    }
+  }
+
+  .evolution-card {
+    width: 150px;
+    min-width: 150px;
+
+    padding: 1rem;
+
+    border-radius: 18px;
+
+    &__image {
+      width: 115px;
+      height: 115px;
+
+      img {
+        width: 105px;
+        height: 105px;
+      }
+    }
+
+    &__number {
+      margin-top: 0.75rem;
+      font-size: 0.65rem;
+    }
+
+    &__name {
+      font-size: 0.95rem;
+    }
+
+    &__image-skeleton {
+      width: 115px;
+      height: 115px;
+    }
+  }
+
+  .evolution-connector {
+    width: 65px;
+    min-width: 65px;
+
+    &__requirement {
+      max-width: 60px;
+
+      overflow: hidden;
+
+      padding: 0.3rem 0.4rem;
+
+      font-size: 0.55rem;
+
+      text-overflow: ellipsis;
+    }
+
+    &__arrow {
+      right: -3px;
+
+      width: 17px;
+      height: 17px;
+
+      font-size: 0.6rem;
+    }
+  }
+}
