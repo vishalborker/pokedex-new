@@ -66,9 +66,9 @@ function HomePage() {
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  if (isLoading) {
-    return <Loading message="Loading Pokémon..." />;
-  }
+  // if (isLoading) {
+  //   return <Loading message="Loading Pokémon..." />;
+  // }
 
   if (isError) {
     return <ErrorMessage message="Unable to load Pokémon." onRetry={refetch} />;
@@ -97,11 +97,15 @@ function HomePage() {
             onTypeChange={setSelectedType}
           />
 
-          <PokemonGrid
-            pokemon={pokemon}
-            favorites={favorites}
-            onToggleFavorite={toggleFavorite}
-          />
+          {isLoading ? (
+            <Loading message="Loading Pokémon..." />
+          ) : (
+            <PokemonGrid
+              pokemon={pokemon}
+              favorites={favorites}
+              onToggleFavorite={toggleFavorite}
+            />
+          )}
 
           {isPokemonLoading && !isFetchingNextPage && (
             <div className="home-page__loading">
