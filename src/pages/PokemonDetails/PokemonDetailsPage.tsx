@@ -54,7 +54,10 @@ function PokemonDetailsPage() {
           onToggleFavorite={toggleFavorite}
         />
         <PokemonAbout pokemon={pokemon} />
-        <PokemonStats stats={pokemon.stats} />
+        <PokemonStats
+          stats={pokemon.stats}
+          primaryType={pokemon.types[0]?.type.name ?? 'normal'}
+        />
         {evolutionChain && <EvolutionChain chain={evolutionChain.chain} />}
         <PokemonAbilities abilities={pokemon.abilities} />
       </div>

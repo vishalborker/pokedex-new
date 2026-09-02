@@ -4,29 +4,47 @@ import './PokemonStats.scss';
 
 interface PokemonStatsProps {
   stats: PokemonStat[];
+  primaryType: string;
 }
 
-function PokemonStats({ stats }: PokemonStatsProps) {
+const STAT_LABELS: Record<string, string> = {
+  hp: 'HP',
+  attack: 'ATK',
+  defense: 'DEF',
+  'special-attack': 'SP.ATK',
+  'special-defense': 'SP.DEF',
+  speed: 'SPD',
+};
+
+function PokemonStats({ stats, primaryType }: PokemonStatsProps) {
   return (
-    <section className="pokemon-stats-section">
+    <section
+      className={`pokemon-stats-section pokemon-stats-section--${primaryType}`}
+    >
       <h2>Base Stats</h2>
 
       <div className="pokemon-stats">
-        {stats.map((stat) => (
-          <div className="pokemon-stats__row" key={stat.stat.name}>
-            <span>{stat.stat.name.replace('-', ' ')}</span>
+        {stats.map(({ stat, base_stat }) => {
+          const label = STAT_LABELS[stat.name] ?? stat.name;
 
-            <strong>{stat.base_stat}</strong>
+          const statPercentage = Math.min((base_stat / 150) * 100, 100);
 
-            <div className="pokemon-stats__bar">
-              <div
-                style={{
-                  width: `${Math.min(stat.base_stat, 100)}%`,
-                }}
-              />
+          return (
+            <div className="pokemon-stats__row" key={stat.name}>
+              <span className="pokemon-stats__label">{label}</span>
+
+              <div className="pokemon-stats__bar" aria-hidden="true">
+                <span
+                  style={{
+                    width: `${statPercentage}%`,
+                  }}
+                />
+              </div>
+
+              <strong className="pokemon-stats__value">{base_stat}</strong>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
