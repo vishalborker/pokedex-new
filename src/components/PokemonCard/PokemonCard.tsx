@@ -25,8 +25,10 @@ function PokemonCard({
 }: PokemonCardProps) {
   const image = getPokemonImage(pokemon);
 
+  const primaryType = pokemon.types[0]?.type.name ?? 'normal';
+
   return (
-    <article className="pokemon-card">
+    <article className={`pokemon-card pokemon-card--${primaryType}`}>
       <button
         type="button"
         className={`pokemon-card__favorite ${
@@ -35,14 +37,18 @@ function PokemonCard({
         onClick={() => onToggleFavorite(pokemon.id)}
         aria-label={
           isFavorite
-            ? `Remove ${pokemon.name} from favorites`
-            : `Add ${pokemon.name} to favorites`
+            ? `Remove ${formatPokemonName(pokemon.name)} from favorites`
+            : `Add ${formatPokemonName(pokemon.name)} to favorites`
         }
       >
         {isFavorite ? '♥' : '♡'}
       </button>
 
-      <Link to={`/pokemon/${pokemon.name}`} className="pokemon-card__link">
+      <Link
+        to={`/pokemon/${pokemon.name}`}
+        className="pokemon-card__link"
+        aria-label={`View ${formatPokemonName(pokemon.name)} details`}
+      >
         <div className="pokemon-card__image">
           {image && (
             <img

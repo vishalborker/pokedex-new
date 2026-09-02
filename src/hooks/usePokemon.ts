@@ -72,3 +72,11 @@ export const usePokemon = (nameOrId: string | number) => {
     staleTime: 1000 * 60 * 10,
   });
 };
+
+export const usePokemonSearch = () => {
+  return useQuery({
+    queryKey: ['pokemon', 'search'],
+    queryFn: () => getPokemonList(2000, 0),
+    staleTime: 1000 * 60 * 60,
+  });
+};
