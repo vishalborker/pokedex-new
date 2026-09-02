@@ -1,0 +1,65 @@
+.pokemon-stat-preview {
+  display: flex;
+  align-items: center;
+
+  gap: 0.75rem;
+
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+
+  border-top: 1px solid #e5e7eb;
+
+  overflow: hidden;
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+
+    gap: 0.25rem;
+
+    flex: 1;
+  }
+
+  &__label {
+    flex-shrink: 0;
+
+    color: #6b7280;
+
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  &__bar {
+    flex: 1;
+
+    min-width: 20px;
+    height: 4px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #e5e7eb;
+
+    span {
+      display: block;
+
+      height: 100%;
+
+      border-radius: inherit;
+
+      background: var(--card-color);
+    }
+  }
+
+  &__value {
+    flex-shrink: 0;
+
+    color: var(--card-color-dark);
+
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+}
