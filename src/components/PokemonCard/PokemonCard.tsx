@@ -34,14 +34,19 @@ function PokemonCard({
         className={`pokemon-card__favorite ${
           isFavorite ? 'pokemon-card__favorite--active' : ''
         }`}
-        onClick={() => onToggleFavorite(pokemon.id)}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          onToggleFavorite(pokemon.id);
+        }}
         aria-label={
           isFavorite
             ? `Remove ${formatPokemonName(pokemon.name)} from favorites`
             : `Add ${formatPokemonName(pokemon.name)} to favorites`
         }
+        aria-pressed={isFavorite}
       >
-        {isFavorite ? '♥' : '♡'}
+        <span aria-hidden="true">{isFavorite ? '♥' : '♡'}</span>
       </button>
 
       <Link
