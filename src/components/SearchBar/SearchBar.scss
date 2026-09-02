@@ -1,42 +1,275 @@
 .search-bar {
-  display: flex;
+  position: relative;
+
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
+
   margin: 2rem auto;
-  gap: 0.5rem;
 
-  input {
+  form {
+    display: flex;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  &__input-wrapper {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
     flex: 1;
-    min-width: 0;
-    padding: 0.9rem 1rem;
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    outline: none;
 
-    &:focus {
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:focus-within {
       border-color: #ef4444;
+
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
     }
   }
 
-  button {
-    padding: 0.9rem 1.25rem;
+  &__icon {
+    flex-shrink: 0;
+
+    margin-left: 1rem;
+
+    font-size: 1rem;
+  }
+
+  input {
+    width: 100%;
+    min-width: 0;
+
+    padding: 0.95rem 3rem 0.95rem 0.75rem;
+
     border: 0;
-    border-radius: 10px;
-    background: #ef4444;
-    color: white;
-    font-weight: 600;
+    outline: none;
+
+    background: transparent;
+
+    color: #111827;
+
+    font-size: 1rem;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    // Remove browser search decorations
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+
+  &__clear {
+    position: absolute;
+    right: 0.65rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: #6b7280;
+
+    font-size: 1.25rem;
+    line-height: 1;
+
     cursor: pointer;
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+
+    &:hover {
+      background: #e5e7eb;
+      color: #111827;
+    }
+  }
+
+  &__submit {
+    flex-shrink: 0;
+
+    padding: 0 1.5rem;
+
+    border: 0;
+    border-radius: 14px;
+
+    background: #ef4444;
+    color: #ffffff;
+
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
 
     &:hover {
       background: #dc2626;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
 
-  @media (max-width: 480px) {
-    flex-direction: column;
+  // Suggestions dropdown
+  &__suggestions {
+    position: absolute;
+    z-index: 100;
 
-    button {
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+
+    overflow: hidden;
+
+    padding: 0.5rem;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    box-shadow:
+      0 10px 25px rgba(0, 0, 0, 0.08),
+      0 4px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  &__suggestion {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 0.65rem;
+
+    border: 0;
+    border-radius: 12px;
+
+    background: transparent;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: #f8fafc;
+      transform: translateX(3px);
+    }
+  }
+
+  &__suggestion-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #f3f4f6;
+
+    img {
+      width: 42px;
+      height: 42px;
+
+      object-fit: contain;
+    }
+  }
+
+  &__suggestion-info {
+    display: flex;
+    flex: 1;
+
+    align-items: center;
+    justify-content: space-between;
+
+    min-width: 0;
+
+    margin-left: 0.75rem;
+  }
+
+  &__suggestion-name {
+    overflow: hidden;
+
+    color: #111827;
+
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    white-space: nowrap;
+  }
+
+  &__suggestion-id {
+    margin-left: 1rem;
+
+    color: #9ca3af;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  &__status {
+    padding: 1rem;
+
+    color: #6b7280;
+
+    font-size: 0.9rem;
+
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    form {
+      flex-direction: column;
+    }
+
+    &__submit {
       width: 100%;
+      min-height: 48px;
+    }
+
+    &__suggestion-info {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    &__suggestion-id {
+      margin-left: 0;
     }
   }
 }
