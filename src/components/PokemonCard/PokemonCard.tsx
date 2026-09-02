@@ -11,6 +11,7 @@ import {
 import PokemonTypeBadge from '../PokemonTypeBadge/PokemonTypeBadge';
 
 import './PokemonCard.scss';
+import PokemonStatPreview from '../PokemonStatPreview/PokemonStatPreview';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -24,7 +25,6 @@ function PokemonCard({
   onToggleFavorite,
 }: PokemonCardProps) {
   const image = getPokemonImage(pokemon);
-
   const primaryType = pokemon.types[0]?.type.name ?? 'normal';
 
   return (
@@ -76,6 +76,8 @@ function PokemonCard({
               <PokemonTypeBadge key={type.name} type={type.name} />
             ))}
           </div>
+
+          <PokemonStatPreview stats={pokemon.stats} />
         </div>
       </Link>
     </article>

@@ -1,0 +1,42 @@
+.pokemon-about {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+
+  h2 {
+    margin-top: 0;
+  }
+
+  &__measurements {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  &__item {
+    padding: 1rem;
+    border-radius: 12px;
+    background: #f3f4f6;
+
+    span,
+    strong {
+      display: block;
+    }
+
+    span {
+      margin-bottom: 0.5rem;
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .pokemon-about {
+    &__measurements {
+      grid-template-columns: 1fr;
+    }
+  }
+}
