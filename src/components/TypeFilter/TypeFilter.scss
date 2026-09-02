@@ -1,3 +1,5 @@
+@use '../../styles/pokemon-types' as pokemon;
+
 .type-filter {
   display: flex;
   flex-wrap: wrap;
@@ -42,6 +44,8 @@
 
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
+
+    @include pokemon.pokemon-type-button-theme();
   }
 
   &__icon {
@@ -53,102 +57,8 @@
     line-height: 1;
   }
 
-  // Normal
   &__button--all {
     background: #475569;
-  }
-
-  &__button--normal {
-    background: #a8a77a;
-  }
-
-  // Fire
-  &__button--fire {
-    background: #ee8130;
-  }
-
-  // Water
-  &__button--water {
-    background: #6390f0;
-  }
-
-  // Electric
-  &__button--electric {
-    background: #f7d02c;
-    color: #1f2937;
-  }
-
-  // Grass
-  &__button--grass {
-    background: #7ac74c;
-  }
-
-  // Ice
-  &__button--ice {
-    background: #96d9d6;
-    color: #1f2937;
-  }
-
-  // Fighting
-  &__button--fighting {
-    background: #c22e28;
-  }
-
-  // Poison
-  &__button--poison {
-    background: #a33ea1;
-  }
-
-  // Ground
-  &__button--ground {
-    background: #e2bf65;
-    color: #1f2937;
-  }
-
-  // Flying
-  &__button--flying {
-    background: #a98ff3;
-  }
-
-  // Psychic
-  &__button--psychic {
-    background: #f95587;
-  }
-
-  // Bug
-  &__button--bug {
-    background: #a6b91a;
-  }
-
-  // Rock
-  &__button--rock {
-    background: #b6a136;
-  }
-
-  // Ghost
-  &__button--ghost {
-    background: #735797;
-  }
-
-  // Dragon
-  &__button--dragon {
-    background: #6f35fc;
-  }
-
-  // Dark
-  &__button--dark {
-    background: #705746;
-  }
-
-  // Steel
-  &__button--steel {
-    background: #b7b7ce;
-    color: #1f2937;
-  }
-
-  // Fairy
-  &__button--fairy {
-    background: #d685ad;
   }
 
   @media (max-width: 600px) {

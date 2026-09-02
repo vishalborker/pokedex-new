@@ -1,0 +1,122 @@
+@use 'sass:map';
+
+$pokemon-types: (
+  normal: (
+    color: #a8a77a,
+    light: #f0f0df,
+    dark: #797953,
+  ),
+  fire: (
+    color: #ee8130,
+    light: #fce3d2,
+    dark: #b95713,
+  ),
+  water: (
+    color: #6390f0,
+    light: #e1e9fc,
+    dark: #315ab5,
+  ),
+  electric: (
+    color: #f7d02c,
+    light: #fff6cf,
+    dark: #a88a00,
+    text: #1f2937,
+  ),
+  grass: (
+    color: #7ac74c,
+    light: #e5f4db,
+    dark: #4e8e29,
+  ),
+  ice: (
+    color: #96d9d6,
+    light: #e2f5f4,
+    dark: #579b97,
+    text: #1f2937,
+  ),
+  fighting: (
+    color: #c22e28,
+    light: #f4d4d3,
+    dark: #861d19,
+  ),
+  poison: (
+    color: #a33ea1,
+    light: #efd9ef,
+    dark: #70266e,
+  ),
+  ground: (
+    color: #e2bf65,
+    light: #f7efd8,
+    dark: #a68738,
+    text: #1f2937,
+  ),
+  flying: (
+    color: #a98ff3,
+    light: #ece6fc,
+    dark: #7258bc,
+  ),
+  psychic: (
+    color: #f95587,
+    light: #fbdce6,
+    dark: #ba315b,
+  ),
+  bug: (
+    color: #a6b91a,
+    light: #eef2d0,
+    dark: #75820f,
+  ),
+  rock: (
+    color: #b6a136,
+    light: #eeeace,
+    dark: #81721e,
+  ),
+  ghost: (
+    color: #735797,
+    light: #e5e0ed,
+    dark: #4f3b6b,
+  ),
+  dragon: (
+    color: #6f35fc,
+    light: #e3dcfc,
+    dark: #4d21b9,
+  ),
+  dark: (
+    color: #705746,
+    light: #e7e1dd,
+    dark: #4b382d,
+  ),
+  steel: (
+    color: #b7b7ce,
+    light: #eeeeee,
+    dark: #77778f,
+    text: #1f2937,
+  ),
+  fairy: (
+    color: #d685ad,
+    light: #f4e0eb,
+    dark: #a7547d,
+  ),
+);
+
+@mixin pokemon-type-theme($prefix: 'pokemon-type') {
+  @each $type, $colors in $pokemon-types {
+    &--#{$type} {
+      --#{$prefix}-color: #{map.get($colors, color)};
+      --#{$prefix}-color-light: #{map.get($colors, light)};
+      --#{$prefix}-color-dark: #{map.get($colors, dark)};
+    }
+  }
+}
+
+@mixin pokemon-type-button-theme() {
+  @each $type, $colors in $pokemon-types {
+    &--#{$type} {
+      background: map.get($colors, color);
+
+      @if map.has-key($colors, text) {
+        color: map.get($colors, text);
+      } @else {
+        color: #ffffff;
+      }
+    }
+  }
+}

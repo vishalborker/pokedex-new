@@ -1,3 +1,5 @@
+@use '../../styles/pokemon-types' as pokemon;
+
 .pokemon-stats-section {
   --stats-color: #6b7280;
 
@@ -10,80 +12,7 @@
   h2 {
     margin-top: 0;
   }
-
-  // Pokémon type colors
-
-  &--normal {
-    --stats-color: #a8a77a;
-  }
-
-  &--fire {
-    --stats-color: #ee8130;
-  }
-
-  &--water {
-    --stats-color: #6390f0;
-  }
-
-  &--electric {
-    --stats-color: #f7d02c;
-  }
-
-  &--grass {
-    --stats-color: #7ac74c;
-  }
-
-  &--ice {
-    --stats-color: #96d9d6;
-  }
-
-  &--fighting {
-    --stats-color: #c22e28;
-  }
-
-  &--poison {
-    --stats-color: #a33ea1;
-  }
-
-  &--ground {
-    --stats-color: #e2bf65;
-  }
-
-  &--flying {
-    --stats-color: #a98ff3;
-  }
-
-  &--psychic {
-    --stats-color: #f95587;
-  }
-
-  &--bug {
-    --stats-color: #a6b91a;
-  }
-
-  &--rock {
-    --stats-color: #b6a136;
-  }
-
-  &--ghost {
-    --stats-color: #735797;
-  }
-
-  &--dragon {
-    --stats-color: #6f35fc;
-  }
-
-  &--dark {
-    --stats-color: #705746;
-  }
-
-  &--steel {
-    --stats-color: #b7b7ce;
-  }
-
-  &--fairy {
-    --stats-color: #d685ad;
-  }
+  @include pokemon.pokemon-type-theme('stats');
 }
 
 .pokemon-stats {
