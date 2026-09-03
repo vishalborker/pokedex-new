@@ -12,7 +12,6 @@ import { usePokemon } from '../../hooks/usePokemon';
 import { usePokemonStore } from '../../stores/pokemonStore';
 
 import './PokemonDetailsPage.scss';
-import PokemonAbout from '../../components/PokemonAbout/PokemonAbout';
 import PokemonStats from '../../components/PokemonStats/PokemonStats';
 import PokemonDetailNavigation from '../../components/PokemonDetailNavigation/PokemonDetailNavigation';
 
@@ -27,7 +26,8 @@ function PokemonDetailsPage() {
     isError,
     refetch,
   } = usePokemon(pokemonName ?? '');
-  const { data: evolutionChain } = useEvolutionChain(pokemon?.name ?? '');
+  const { data: evolutionChain, isLoading: isSpeciesLoading } =
+    useEvolutionChain(pokemon?.name ?? '');
 
   const isFavorite = usePokemonStore((state) =>
     pokemon ? state.favorites.includes(pokemon.id) : false,
@@ -54,8 +54,8 @@ function PokemonDetailsPage() {
           pokemon={pokemon}
           isFavorite={isFavorite}
           onToggleFavorite={toggleFavorite}
+          isDescriptionLoading={isSpeciesLoading}
         />
-        <PokemonAbout pokemon={pokemon} />
         <PokemonStats
           stats={pokemon.stats}
           primaryType={pokemon.types[0]?.type.name ?? 'normal'}
