@@ -30,6 +30,7 @@ export const useEvolutionChain = (pokemonName: string) => {
 
   return {
     ...evolutionQuery,
+    species: speciesQuery.data,
 
     isLoading: speciesQuery.isLoading || evolutionQuery.isLoading,
 

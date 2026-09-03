@@ -16,18 +16,53 @@
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
 
   &__image {
+    position: relative;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 400px;
+    overflow: hidden;
     border-radius: 20px;
     background: var(--hero-color-light);
+  }
 
-    img {
-      width: min(100%, 400px);
-      height: 400px;
-      object-fit: contain;
-      filter: drop-shadow(0 20px 15px rgba(0, 0, 0, 0.15));
+  &__image-skeleton {
+    position: absolute;
+    inset: 2rem;
+    border-radius: 20px;
+    background: linear-gradient(
+      90deg,
+      var(--hero-color-light) 25%,
+      #ffffff 50%,
+      var(--hero-color-light) 75%
+    );
+    background-size: 200% 100%;
+    animation: pokemon-skeleton-shimmer 1.5s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+  }
+
+  &__artwork {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 400px);
+    height: 400px;
+    opacity: 0;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 15px rgba(0, 0, 0, 0.15));
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  &__image--loaded {
+    .pokemon-details-hero__artwork {
+      opacity: 1;
+    }
+
+    .pokemon-details-hero__image-skeleton {
+      opacity: 0;
+      pointer-events: none;
     }
   }
 
@@ -57,6 +92,81 @@
     gap: 0.6rem;
   }
 
+  &__description {
+    max-width: 520px;
+    margin: 1.25rem 0 0;
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  &__description-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 520px;
+    margin-top: 1.25rem;
+
+    span {
+      display: block;
+      height: 0.85rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+      background-size: 200% 100%;
+      animation: pokemon-skeleton-shimmer 1.5s ease-in-out infinite;
+      &:nth-child(1) {
+        width: 100%;
+      }
+
+      &:nth-child(2) {
+        width: 92%;
+      }
+
+      &:nth-child(3) {
+        width: 65%;
+      }
+    }
+  }
+
+  &__facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    max-width: 520px;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  &__fact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    &:not(:last-child) {
+      border-right: 1px solid #e5e7eb;
+    }
+
+    &:not(:first-child) {
+      padding-left: 1rem;
+    }
+  }
+
+  &__fact-label {
+    color: #9ca3af;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__fact-value {
+    color: var(--hero-color-dark);
+    font-size: 1rem;
+    font-weight: 800;
+  }
+
   &__favorite {
     margin-top: 1.5rem;
     padding: 0.8rem 1.25rem;
@@ -84,6 +194,16 @@
   @include pokemon.pokemon-type-theme('hero');
 }
 
+@keyframes pokemon-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 @media (max-width: 700px) {
   .pokemon-details-hero {
     grid-template-columns: 1fr;
@@ -91,10 +211,28 @@
 
     &__image {
       min-height: 280px;
+    }
 
-      img {
-        width: min(100%, 280px);
-        height: 280px;
+    &__image-skeleton {
+      inset: 1rem;
+    }
+
+    &__artwork {
+      width: min(100%, 280px);
+      height: 280px;
+    }
+
+    &__description {
+      font-size: 0.9rem;
+    }
+
+    &__facts {
+      max-width: 100%;
+    }
+
+    &__fact {
+      &:not(:first-child) {
+        padding-left: 0.75rem;
       }
     }
   }

@@ -135,4 +135,17 @@ export interface PokemonSpecies {
   evolution_chain: {
     url: string;
   };
+  flavor_text_entries: PokemonSpeciesFlavorText[];
+}
+
+export interface PokemonSpeciesFlavorText {
+  flavor_text: string;
+  language: {
+    name: string;
+    url: string;
+  };
+  version: {
+    name: string;
+    url: string;
+  };
 }
