@@ -1,0 +1,116 @@
+.pokemon-detail-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 100px;
+    padding: 0.65rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #111827;
+    cursor: pointer;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: #d1d5db;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    &:focus-visible {
+      outline: 3px solid #dbeafe;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover:not(:disabled) img {
+      transform: scale(1.1);
+    }
+
+    &--previous {
+      text-align: left;
+
+      &:hover:not(:disabled) img {
+        transform: translateX(-4px) scale(1.1);
+      }
+    }
+
+    &--next {
+      text-align: right;
+
+      &:hover:not(:disabled) img {
+        transform: translateX(4px) scale(1.1);
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__direction {
+    color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  &__pokemon {
+    color: #111827;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 600px) {
+  .pokemon-detail-navigation {
+    gap: 0.75rem;
+
+    &__button {
+      min-width: 0;
+      gap: 0.5rem;
+      padding: 0.5rem 0.65rem;
+
+      img {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    &__direction {
+      font-size: 0.65rem;
+    }
+
+    &__pokemon {
+      font-size: 0.75rem;
+    }
+  }
+}

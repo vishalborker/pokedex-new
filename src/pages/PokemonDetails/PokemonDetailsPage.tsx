@@ -14,6 +14,7 @@ import { usePokemonStore } from '../../stores/pokemonStore';
 import './PokemonDetailsPage.scss';
 import PokemonAbout from '../../components/PokemonAbout/PokemonAbout';
 import PokemonStats from '../../components/PokemonStats/PokemonStats';
+import PokemonDetailNavigation from '../../components/PokemonDetailNavigation/PokemonDetailNavigation';
 
 function PokemonDetailsPage() {
   const { pokemonName } = useParams<{
@@ -48,6 +49,7 @@ function PokemonDetailsPage() {
         <Link to="/" className="pokemon-details__back">
           ← Back to Pokédex
         </Link>
+        <PokemonDetailNavigation pokemon={pokemon} />
         <PokemonDetailsHero
           pokemon={pokemon}
           isFavorite={isFavorite}
