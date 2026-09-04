@@ -1,3 +1,5 @@
+@use '../../styles/pokemon-types' as pokemon;
+
 .pokemon-type {
   display: inline-flex;
   align-items: center;
@@ -34,79 +36,5 @@
       0 4px 8px rgba(0, 0, 0, 0.16);
   }
 
-  // ---------------------------------------------
-  // Pokémon Types
-  // ---------------------------------------------
-
-  &--normal {
-    background: #6b7280;
-  }
-
-  &--fire {
-    background: #ea580c;
-  }
-
-  &--water {
-    background: #2563eb;
-  }
-
-  &--electric {
-    background: #ca8a04;
-  }
-
-  &--grass {
-    background: #65a30d;
-  }
-
-  &--ice {
-    background: #0891b2;
-  }
-
-  &--fighting {
-    background: #b91c1c;
-  }
-
-  &--poison {
-    background: #9333ea;
-  }
-
-  &--ground {
-    background: #a16207;
-  }
-
-  &--flying {
-    background: #6366f1;
-  }
-
-  &--psychic {
-    background: #db2777;
-  }
-
-  &--bug {
-    background: #65a30d;
-  }
-
-  &--rock {
-    background: #78716c;
-  }
-
-  &--ghost {
-    background: #6d28d9;
-  }
-
-  &--dragon {
-    background: #4f46e5;
-  }
-
-  &--dark {
-    background: #374151;
-  }
-
-  &--steel {
-    background: #64748b;
-  }
-
-  &--fairy {
-    background: #db2777;
-  }
+  @include pokemon.pokemon-type-button-theme();
 }
