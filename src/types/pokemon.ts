@@ -8,6 +8,30 @@ export interface Pokemon {
   types: PokemonType[];
   stats: PokemonStat[];
   abilities: PokemonAbility[];
+  moves: PokemonMove[];
+}
+
+export interface PokemonMove {
+  move: {
+    name: string;
+    url: string;
+  };
+}
+
+export interface PokemonMoveDetails {
+  id: number;
+  name: string;
+  power: number | null;
+  accuracy: number | null;
+  pp: number;
+  damage_class: {
+    name: string;
+    url: string;
+  };
+  type: {
+    name: string;
+    url: string;
+  };
 }
 
 export interface PokemonSprites {

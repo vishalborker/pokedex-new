@@ -14,6 +14,7 @@ import { usePokemonStore } from '../../stores/pokemonStore';
 import './PokemonDetailsPage.scss';
 import PokemonStats from '../../components/PokemonStats/PokemonStats';
 import PokemonDetailNavigation from '../../components/PokemonDetailNavigation/PokemonDetailNavigation';
+import PokemonMovesPreview from '../../components/PokemonMovesPreview/PokemonMovesPreview';
 
 function PokemonDetailsPage() {
   const { pokemonName } = useParams<{
@@ -34,6 +35,10 @@ function PokemonDetailsPage() {
   );
 
   const toggleFavorite = usePokemonStore((state) => state.toggleFavorite);
+
+  const randomPokemonId = 25;
+
+  const { data: opponent } = usePokemon(randomPokemonId);
 
   if (isLoading) {
     return <Loading message="Loading Pokémon..." />;
@@ -62,6 +67,10 @@ function PokemonDetailsPage() {
         />
         {evolutionChain && <EvolutionChain chain={evolutionChain.chain} />}
         <PokemonAbilities abilities={pokemon.abilities} />
+
+        {opponent && (
+          <PokemonMovesPreview pokemon={pokemon} opponent={opponent} />
+        )}
       </div>
     </main>
   );
