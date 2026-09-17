@@ -25,6 +25,10 @@ function PokemonMovesPreview({ pokemon, opponent }: PokemonMovesPreviewProps) {
   const attackerImage = getPokemonImage(pokemon);
   const opponentImage = getPokemonImage(opponent);
 
+  const moveType = move?.type.name ?? pokemon.types[0]?.type.name ?? 'normal';
+
+  const visibleMoves = pokemon.moves.slice(0, 12);
+
   const handlePlayAttack = () => {
     setIsAttacking(false);
 
@@ -36,10 +40,6 @@ function PokemonMovesPreview({ pokemon, opponent }: PokemonMovesPreviewProps) {
   const handleAnimationEnd = () => {
     setIsAttacking(false);
   };
-
-  const moveType = move?.type.name ?? pokemon.types[0]?.type.name ?? 'normal';
-
-  const visibleMoves = pokemon.moves.slice(0, 12);
 
   return (
     <section className={`pokemon-moves pokemon-moves--${moveType}`}>
@@ -69,14 +69,21 @@ function PokemonMovesPreview({ pokemon, opponent }: PokemonMovesPreviewProps) {
                 setIsAttacking(false);
               }}
             >
-              <span className="pokemon-moves__move-icon">✦</span>
+              <span className="pokemon-moves__move-icon" aria-hidden="true">
+                ✦
+              </span>
 
               <span className="pokemon-moves__move-name">
                 {formatPokemonName(moveItem.name)}
               </span>
 
               {isSelected && (
-                <span className="pokemon-moves__move-indicator">✓</span>
+                <span
+                  className="pokemon-moves__move-indicator"
+                  aria-hidden="true"
+                >
+                  ✓
+                </span>
               )}
             </button>
           );
@@ -103,7 +110,10 @@ function PokemonMovesPreview({ pokemon, opponent }: PokemonMovesPreviewProps) {
         </div>
 
         <div className="pokemon-moves__attack">
-          <span className="pokemon-moves__attack-effect">⚡</span>
+          <span
+            className={`pokemon-moves__attack-effect pokemon-moves__attack-effect--${moveType}`}
+            aria-hidden="true"
+          />
         </div>
 
         <div className="pokemon-moves__fighter pokemon-moves__fighter--opponent">

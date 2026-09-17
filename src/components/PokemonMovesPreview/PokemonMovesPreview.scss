@@ -51,6 +51,10 @@
   @include pokemon.pokemon-type-theme('moves');
 }
 
+// ---------------------------------------------------------
+// Move selection
+// ---------------------------------------------------------
+
 .pokemon-moves__list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -84,6 +88,7 @@
 
   &:hover {
     transform: translateY(-2px);
+
     border-color: var(--moves-color);
   }
 
@@ -141,18 +146,23 @@
   font-weight: 900;
 }
 
+// ---------------------------------------------------------
+// Battle arena
+// ---------------------------------------------------------
+
 .pokemon-moves__arena {
   position: relative;
 
   display: grid;
-  grid-template-columns: 1fr 120px 1fr;
+  grid-template-columns: 1fr 140px 1fr;
 
   align-items: center;
 
-  min-height: 260px;
+  min-height: 280px;
 
   overflow: hidden;
 
+  border: 1px solid #eef0f3;
   border-radius: 20px;
 
   background:
@@ -162,17 +172,19 @@
       transparent 35%
     ),
     radial-gradient(circle at 80% 50%, #f8fafc, transparent 35%), #f8fafc;
-
-  border: 1px solid #eef0f3;
 }
 
+// ---------------------------------------------------------
+// Pokémon
+// ---------------------------------------------------------
+
 .pokemon-moves__fighter {
+  position: relative;
+  z-index: 2;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  position: relative;
-  z-index: 2;
 
   color: #111827;
 
@@ -205,19 +217,9 @@
   }
 }
 
-.pokemon-moves__arena--attacking {
-  .pokemon-moves__fighter--attacker img {
-    animation: attacker-lunge 0.7s ease-out;
-  }
-
-  .pokemon-moves__fighter--opponent img {
-    animation: opponent-hit 0.7s ease-out;
-  }
-
-  .pokemon-moves__attack-effect {
-    animation: attack-projectile 0.7s ease-out;
-  }
-}
+// ---------------------------------------------------------
+// Attack container
+// ---------------------------------------------------------
 
 .pokemon-moves__attack {
   position: relative;
@@ -229,28 +231,665 @@
   height: 100%;
 }
 
-.pokemon-moves__attack-effect {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+// ---------------------------------------------------------
+// Generic attack projectile
+// ---------------------------------------------------------
 
-  width: 52px;
-  height: 52px;
+.pokemon-moves__attack-effect {
+  position: relative;
+
+  display: block;
+
+  width: 45px;
+  height: 45px;
+
+  opacity: 0;
 
   border-radius: 50%;
 
   background: var(--moves-color);
 
-  color: #ffffff;
-
-  font-size: 1.4rem;
-
   box-shadow:
     0 0 0 8px var(--moves-color-light),
     0 0 25px var(--moves-color);
 
-  opacity: 0;
+  &::before,
+  &::after {
+    position: absolute;
+
+    content: '';
+  }
 }
+
+// ---------------------------------------------------------
+// ELECTRIC ⚡
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--electric {
+  width: 14px;
+  height: 70px;
+
+  border-radius: 4px;
+
+  background: #facc15;
+
+  box-shadow:
+    0 0 10px #facc15,
+    0 0 25px #facc15;
+
+  transform: rotate(-18deg);
+
+  &::before {
+    inset: 10px -10px;
+
+    border-radius: 3px;
+
+    background: #fde047;
+
+    transform: rotate(35deg);
+  }
+
+  &::after {
+    inset: 25px -18px;
+
+    background: #ffffff;
+
+    transform: rotate(-40deg);
+  }
+}
+
+// ---------------------------------------------------------
+// FIRE 🔥
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--fire {
+  width: 55px;
+  height: 55px;
+
+  background: #f97316;
+
+  box-shadow:
+    0 0 12px #fb923c,
+    0 0 30px #ef4444;
+
+  &::before {
+    top: -18px;
+    left: 13px;
+
+    width: 30px;
+    height: 45px;
+
+    border-radius: 60% 40% 60% 40%;
+
+    background: #facc15;
+
+    transform: rotate(20deg);
+  }
+
+  &::after {
+    top: 8px;
+    left: 18px;
+
+    width: 20px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+  }
+}
+
+// ---------------------------------------------------------
+// WATER 💧
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--water {
+  width: 65px;
+  height: 38px;
+
+  border-radius: 70% 30% 70% 30%;
+
+  background: #38bdf8;
+
+  box-shadow:
+    0 0 15px #38bdf8,
+    0 0 30px #2563eb;
+
+  transform: rotate(-15deg);
+
+  &::before {
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: #bae6fd;
+
+    transform: translate(-25px, 4px);
+  }
+}
+
+// ---------------------------------------------------------
+// ICE ❄️
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--ice {
+  width: 65px;
+  height: 65px;
+
+  border-radius: 15%;
+
+  background: #67e8f9;
+
+  box-shadow:
+    0 0 15px #67e8f9,
+    0 0 30px #06b6d4;
+
+  clip-path: polygon(
+    50% 0,
+    65% 30%,
+    100% 25%,
+    72% 50%,
+    100% 75%,
+    62% 68%,
+    50% 100%,
+    38% 68%,
+    0 75%,
+    28% 50%,
+    0 25%,
+    35% 30%
+  );
+}
+
+// ---------------------------------------------------------
+// PSYCHIC
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--psychic {
+  width: 55px;
+  height: 55px;
+
+  background: #ec4899;
+
+  box-shadow:
+    0 0 15px #f472b6,
+    0 0 35px #db2777;
+
+  animation-name: psychic-pulse;
+}
+
+// ---------------------------------------------------------
+// GRASS
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--grass {
+  width: 60px;
+  height: 30px;
+
+  border-radius: 100% 0;
+
+  background: #84cc16;
+
+  box-shadow:
+    0 0 15px #84cc16,
+    0 0 30px #65a30d;
+
+  transform: rotate(-35deg);
+
+  &::before,
+  &::after {
+    width: 18px;
+    height: 38px;
+
+    border-radius: 100% 0;
+
+    background: #a3e635;
+  }
+
+  &::before {
+    transform: translate(-18px, -15px) rotate(-25deg);
+  }
+
+  &::after {
+    transform: translate(40px, 4px) rotate(30deg);
+  }
+}
+
+// ---------------------------------------------------------
+// ROCK
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--rock {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 25% 40% 30% 45%;
+
+  background: #78716c;
+
+  box-shadow:
+    0 0 8px #a8a29e,
+    0 0 25px rgba(120, 113, 108, 0.7);
+
+  transform: rotate(25deg);
+}
+
+// ---------------------------------------------------------
+// GHOST
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--ghost {
+  width: 58px;
+  height: 58px;
+
+  background: #8b5cf6;
+
+  box-shadow:
+    0 0 15px #a78bfa,
+    0 0 35px #6d28d9;
+
+  animation-name: ghost-float;
+}
+
+// ---------------------------------------------------------
+// DRAGON
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--dragon {
+  width: 70px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: #6366f1;
+
+  box-shadow:
+    0 0 15px #818cf8,
+    0 0 35px #4f46e5;
+
+  transform: rotate(-8deg);
+
+  &::before,
+  &::after {
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #a5b4fc;
+  }
+
+  &::before {
+    left: -15px;
+  }
+
+  &::after {
+    right: -15px;
+  }
+}
+
+// ---------------------------------------------------------
+// FIGHTING
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--fighting {
+  width: 60px;
+  height: 60px;
+
+  border: 7px solid #dc2626;
+
+  background: transparent;
+
+  box-shadow:
+    0 0 15px #ef4444,
+    0 0 30px rgba(220, 38, 38, 0.6);
+
+  transform: rotate(45deg);
+}
+
+// ---------------------------------------------------------
+// DARK
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--dark {
+  width: 60px;
+  height: 60px;
+
+  background: #1f2937;
+
+  box-shadow:
+    0 0 15px #4b5563,
+    0 0 30px #111827;
+
+  transform: rotate(45deg);
+}
+
+// ---------------------------------------------------------
+// STEEL
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--steel {
+  width: 65px;
+  height: 20px;
+
+  border-radius: 4px;
+
+  background: #cbd5e1;
+
+  box-shadow:
+    0 0 12px #e2e8f0,
+    0 0 30px #64748b;
+
+  transform: rotate(-15deg);
+}
+
+// ---------------------------------------------------------
+// FLYING
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--flying {
+  width: 70px;
+  height: 25px;
+
+  border-radius: 100% 0;
+
+  background: #a5b4fc;
+
+  box-shadow:
+    0 0 15px #818cf8,
+    0 0 30px #6366f1;
+
+  transform: rotate(-15deg);
+}
+
+// ---------------------------------------------------------
+// POISON
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--poison {
+  width: 58px;
+  height: 58px;
+
+  background: #a855f7;
+
+  box-shadow:
+    0 0 15px #c084fc,
+    0 0 35px #9333ea;
+
+  &::before,
+  &::after {
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: #d8b4fe;
+  }
+
+  &::before {
+    top: -15px;
+    left: 5px;
+  }
+
+  &::after {
+    right: -12px;
+    bottom: 5px;
+  }
+}
+
+// ---------------------------------------------------------
+// BUG
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--bug {
+  width: 48px;
+  height: 48px;
+
+  background: #84cc16;
+
+  box-shadow:
+    0 0 12px #a3e635,
+    0 0 25px #65a30d;
+
+  &::before,
+  &::after {
+    width: 20px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #bef264;
+  }
+
+  &::before {
+    left: -15px;
+    transform: rotate(-30deg);
+  }
+
+  &::after {
+    right: -15px;
+    transform: rotate(30deg);
+  }
+}
+
+// ---------------------------------------------------------
+// FAIRY
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--fairy {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  background: #f9a8d4;
+
+  box-shadow:
+    0 0 15px #fbcfe8,
+    0 0 35px #db2777;
+
+  &::before,
+  &::after {
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+  }
+
+  &::before {
+    top: -20px;
+    left: 10px;
+  }
+
+  &::after {
+    right: -15px;
+    bottom: 10px;
+  }
+}
+
+// ---------------------------------------------------------
+// GROUND
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--ground {
+  width: 65px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  background: #a16207;
+
+  box-shadow:
+    0 0 12px #ca8a04,
+    0 0 25px #854d0e;
+
+  &::before,
+  &::after {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ca8a04;
+  }
+
+  &::before {
+    top: -15px;
+    left: 5px;
+  }
+
+  &::after {
+    right: 5px;
+    bottom: -12px;
+  }
+}
+
+// ---------------------------------------------------------
+// NORMAL
+// ---------------------------------------------------------
+
+.pokemon-moves__attack-effect--normal {
+  width: 55px;
+  height: 55px;
+
+  background: #94a3b8;
+
+  box-shadow:
+    0 0 12px #cbd5e1,
+    0 0 25px #64748b;
+}
+
+// ---------------------------------------------------------
+// Attack animation
+// ---------------------------------------------------------
+
+.pokemon-moves__arena--attacking {
+  .pokemon-moves__fighter--attacker img {
+    animation: attacker-lunge 0.7s ease-out;
+  }
+
+  .pokemon-moves__fighter--opponent img {
+    animation: opponent-hit 0.7s ease-out;
+  }
+
+  .pokemon-moves__attack-effect {
+    animation: attack-projectile 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes attacker-lunge {
+  0%,
+  100% {
+    transform: translateX(0) scale(1);
+  }
+
+  35% {
+    transform: translateX(45px) scale(1.08);
+  }
+
+  65% {
+    transform: translateX(15px) scale(1);
+  }
+}
+
+@keyframes opponent-hit {
+  0%,
+  100% {
+    transform: translateX(0) scaleX(-1);
+  }
+
+  35% {
+    transform: translateX(15px) scaleX(-1) rotate(3deg);
+  }
+
+  50% {
+    transform: translateX(-8px) scaleX(-1) rotate(-3deg);
+  }
+
+  65% {
+    transform: translateX(8px) scaleX(-1) rotate(2deg);
+  }
+}
+
+@keyframes attack-projectile {
+  0% {
+    opacity: 0;
+
+    transform: translateX(-55px) scale(0.4);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+
+    transform: translateX(55px) scale(1.15);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: translateX(75px) scale(0.5);
+  }
+}
+
+@keyframes psychic-pulse {
+  0%,
+  100% {
+    opacity: 0;
+
+    transform: scale(0.4);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+
+    transform: scale(1.25);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: scale(0.4);
+  }
+}
+
+@keyframes ghost-float {
+  0%,
+  100% {
+    opacity: 0;
+
+    transform: translateY(10px) scale(0.5);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+
+    transform: translateY(-5px) scale(1.15);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: translateY(-15px) scale(0.5);
+  }
+}
+
+// ---------------------------------------------------------
+// Details
+// ---------------------------------------------------------
 
 .pokemon-moves__details {
   display: grid;
@@ -295,6 +934,7 @@
 
 .pokemon-moves__stats {
   display: flex;
+
   gap: 1rem;
 
   > div {
@@ -318,6 +958,7 @@
     color: #475569;
 
     font-size: 0.8rem;
+
     text-transform: capitalize;
   }
 }
@@ -347,6 +988,7 @@
 
   &:disabled {
     opacity: 0.5;
+
     cursor: not-allowed;
   }
 
@@ -356,60 +998,9 @@
   }
 }
 
-@keyframes attacker-lunge {
-  0%,
-  100% {
-    transform: translateX(0) scale(1);
-  }
-
-  35% {
-    transform: translateX(45px) scale(1.08);
-  }
-
-  65% {
-    transform: translateX(15px) scale(1);
-  }
-}
-
-@keyframes opponent-hit {
-  0%,
-  100% {
-    transform: translateX(0) scaleX(-1);
-  }
-
-  35% {
-    transform: translateX(15px) scaleX(-1) rotate(3deg);
-  }
-
-  50% {
-    transform: translateX(-8px) scaleX(-1) rotate(-3deg);
-  }
-
-  65% {
-    transform: translateX(8px) scaleX(-1) rotate(2deg);
-  }
-}
-
-@keyframes attack-projectile {
-  0% {
-    opacity: 0;
-    transform: translateX(-45px) scale(0.5);
-  }
-
-  15% {
-    opacity: 1;
-  }
-
-  70% {
-    opacity: 1;
-    transform: translateX(45px) scale(1.2);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(65px) scale(0.5);
-  }
-}
+// ---------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------
 
 @media (max-width: 800px) {
   .pokemon-moves__list {
@@ -451,10 +1042,7 @@
   }
 
   .pokemon-moves__attack-effect {
-    width: 38px;
-    height: 38px;
-
-    font-size: 1rem;
+    transform: scale(0.75);
   }
 
   .pokemon-moves__details {
