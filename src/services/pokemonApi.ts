@@ -4,6 +4,7 @@ import type {
   EvolutionChainResponse,
   Pokemon,
   PokemonListResponse,
+  PokemonMoveDetails,
   PokemonSpecies,
   PokemonTypeListResponse,
 } from '../types/pokemon';
@@ -56,6 +57,14 @@ export const getPokemonSpecies = async (
   const response = await api.get<PokemonSpecies>(
     `/pokemon-species/${nameOrId}`,
   );
+
+  return response.data;
+};
+
+export const getPokemonMove = async (
+  nameOrId: string | number,
+): Promise<PokemonMoveDetails> => {
+  const response = await api.get<PokemonMoveDetails>(`/move/${nameOrId}`);
 
   return response.data;
 };

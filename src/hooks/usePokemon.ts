@@ -4,6 +4,7 @@ import {
   getPokemon,
   getPokemonByType,
   getPokemonList,
+  getPokemonMove,
 } from '../services/pokemonApi';
 
 const PAGE_SIZE = 20;
@@ -77,6 +78,15 @@ export const usePokemonSearch = () => {
   return useQuery({
     queryKey: ['pokemon', 'search'],
     queryFn: () => getPokemonList(2000, 0),
+    staleTime: 1000 * 60 * 60,
+  });
+};
+
+export const usePokemonMove = (moveName: string) => {
+  return useQuery({
+    queryKey: ['pokemon-move', moveName],
+    queryFn: () => getPokemonMove(moveName),
+    enabled: Boolean(moveName),
     staleTime: 1000 * 60 * 60,
   });
 };
