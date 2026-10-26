@@ -7,6 +7,7 @@ function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      
       <Route path="/pokemon/:pokemonName" element={<PokemonDetailsPage />} />
       <Route path="*" element={<HomePage />} />
     </Routes>
